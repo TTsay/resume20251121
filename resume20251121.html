@@ -3,134 +3,507 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>個人履歷表 - 亞大經管系</title>
+  <title>個人履歷表 - 王曉華</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+    :root {
+      --primary-color: #d66068; /* 圖片中的珊瑚紅 */
+      --text-dark: #333333;
+      --text-grey: #666666;
+      --bg-grey: #f0f0f0;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: "Segoe UI", sans-serif;
-      background: #f5f5f5;
+      font-family: "Segoe UI", "Microsoft JhengHei", sans-serif;
+      background: var(--bg-grey);
       margin: 0;
       padding: 20px;
       line-height: 1.6;
+      color: var(--text-dark);
     }
 
+    /* 履歷本體容器 - A4 比例 */
     .resume {
       max-width: 850px;
       margin: auto;
       background: #ffffff;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      position: relative;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+      overflow: hidden; /* 確保圓角不溢出 */
+      display: flex;
+      flex-direction: column;
+      min-height: 1100px; /* 模擬 A4 高度 */
     }
 
-    h1 {
-      margin-bottom: 5px;
-      font-size: 28px;
-      color: #333;
-    }
-    h2 {
-      margin-top: 30px;
-      font-size: 20px;
-      color: #444;
-      border-left: 4px solid #4a90e2;
-      padding-left: 10px;
-    }
-
-    .info {
-      margin-bottom: 20px;
-    }
-    .info p {
-      margin: 3px 0;
+    /* === 頂部 Header === */
+    .header-banner {
+      height: 180px;
+      background-color: var(--primary-color);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-end;
+      padding-right: 50px;
+      color: white;
     }
 
-    .avatar {
-      width: 120px;
-      height: 120px;
-      border-radius: 12px;
+    .header-banner h1 {
+      font-size: 42px;
+      margin: 0;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 800;
+    }
+
+    .header-banner h2 {
+      font-size: 18px;
+      margin: 5px 0 0 0;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      opacity: 0.9;
+    }
+
+    /* === 圓形頭像 === */
+    .avatar-container {
+      position: absolute;
+      top: 40px;
+      left: 50px;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
       overflow: hidden;
-      margin-bottom: 15px;
+      border: 0px solid #fff; /* 圖片似乎無邊框或細邊框 */
+      z-index: 10;
+      background: #ccc; /* 預備背景 */
     }
-    .avatar img {
+
+    .avatar-container img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
 
-    ul {
-      padding-left: 20px;
+    /* === 主要內容區 (雙欄) === */
+    .main-body {
+      display: flex;
+      flex: 1;
+      padding: 60px 40px 40px 40px; /* 上方留白給頭像 */
     }
 
-    .skills span {
-      display: inline-block;
-      padding: 6px 12px;
-      margin: 5px;
-      background: #e7f0ff;
-      border-radius: 8px;
+    /* 左欄 */
+    .left-col {
+      width: 38%;
+      padding-right: 20px;
+      padding-top: 60px; /* 避開頭像 */
+      border-right: 2px solid var(--primary-color); /* 圖片中主要分隔線 */
+    }
+
+    /* 右欄 */
+    .right-col {
+      width: 62%;
+      padding-left: 30px;
+      padding-top: 20px;
+    }
+
+    /* === 通用標題樣式 === */
+    .section-title {
+      display: flex;
+      align-items: center;
+      color: var(--primary-color);
+      font-size: 22px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    /* 圖示圓圈樣式 */
+    .icon-circle {
+      width: 40px;
+      height: 40px;
+      background-color: var(--primary-color);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 18px;
+      margin-right: 15px;
+      flex-shrink: 0;
+    }
+
+    /* === 左欄內容樣式 === */
+    .left-content {
+      margin-bottom: 40px;
+      position: relative;
+    }
+    /* 模擬圖片中的垂直線穿過標題的效果 */
+    .left-content::before {
+      content: '';
+      position: absolute;
+      left: 20px; /* 圓圈中心 */
+      top: 40px;
+      bottom: -40px;
+      width: 2px;
+      background-color: var(--primary-color);
+      z-index: 0;
+    }
+    .left-content:last-child::before {
+      display: none;
+    }
+
+    .left-text {
+      padding-left: 55px; /* 讓文字閃過圖示 */
       font-size: 14px;
+      color: var(--text-dark);
+    }
+
+    .skill-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      padding-left: 55px;
+    }
+    .skill-list li {
+      margin-bottom: 8px;
+      position: relative;
+    }
+    .skill-list li::before {
+      content: '•';
+      color: var(--primary-color);
+      font-weight: bold;
+      margin-right: 8px;
+    }
+
+    /* === 右欄內容樣式 === */
+    .right-content {
+      margin-bottom: 30px;
+      position: relative;
+    }
+    /* 右欄的垂直線 */
+    .right-content::before {
+      content: '';
+      position: absolute;
+      left: 20px;
+      top: 40px;
+      bottom: -30px;
+      width: 2px;
+      background-color: var(--primary-color);
+      z-index: 0;
+    }
+    .right-content:last-child::before {
+      display: none;
+    }
+
+    .item-block {
+      padding-left: 55px; /* 讓文字閃過圖示 */
+      margin-bottom: 20px;
+    }
+
+    .item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-weight: 700;
+      font-size: 16px;
+      color: #000;
+    }
+    
+    .item-date {
+      font-weight: 700;
+      font-size: 14px;
+      color: #000;
+    }
+
+    .item-sub {
+      font-style: italic;
+      color: var(--text-grey);
+      font-size: 14px;
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
+
+    .item-desc {
+      font-size: 14px;
+      color: var(--text-grey);
+      margin: 0;
+    }
+    
+    .item-desc ul {
+        margin: 5px 0;
+        padding-left: 18px;
+    }
+
+    /* === 底部 Footer (聯絡資訊) === */
+    .footer-bar {
+      background-color: var(--primary-color); /* 圖片底部是白色底加上紅色字，還是紅色底？圖中看起來是白色底紅色線條或圖示。但我這邊做成紅色底白字比較像 Header 呼應 */
+      /* 修正：看圖示底部是白色背景，紅色圖示，紅色字，上下有紅線。 */
+      background: #fff;
+      border-top: 3px solid var(--primary-color);
+      border-bottom: 10px solid var(--primary-color);
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      color: var(--primary-color);
+      font-weight: 600;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .contact-icon {
+      width: 30px;
+      height: 30px;
+      background: var(--primary-color);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 10px;
+      font-size: 14px;
+    }
+
+    /* 按鈕樣式微調 */
+    #exportBtnContainer {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 100;
+    }
+
+    /* RWD 手機適配 */
+    @media (max-width: 768px) {
+      .resume {
+        height: auto;
+      }
+      .header-banner {
+        align-items: center;
+        padding-right: 0;
+        padding-top: 100px; /* 給頭像空間 */
+        height: auto;
+        padding-bottom: 20px;
+        text-align: center;
+      }
+      .avatar-container {
+        left: 50%;
+        transform: translateX(-50%);
+        top: 20px;
+        width: 120px;
+        height: 120px;
+      }
+      .main-body {
+        flex-direction: column;
+        padding: 20px;
+      }
+      .left-col, .right-col {
+        width: 100%;
+        border: none;
+        padding: 0;
+      }
+      .footer-bar {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="resume">
-    <div class="avatar">
-      <img src="image/photo.jpg" alt="個人照片" />
-    </div>
 
-    <h1>王曉華</h1>
-    <div class="info">
-      <p>亞洲大學 經營管理學院 大一學生</p>
-      
-      <p>Email: example@mail.com</p>
-    </div>
-    <div style="margin-bottom:12px;">
-      <button id="exportPdf" style="padding:10px 14px;border-radius:8px;border:none;cursor:pointer;background:#4a90e2;color:#fff;font-weight:600;">匯出 PDF</button>
-    </div>
-
-    <h2>自我介紹</h2>
-    <p>
-      我是亞洲大學經管系的學生，對商業分析、專案管理與資料觀察具有濃厚興趣。喜歡團隊合作，也熱愛學習新工具與技能，希望未來能在管理或數據相關領域發展。
-    </p>
-
-    <h2>學歷</h2>
-    <ul>
-      <li>亞洲大學 經營管理學系（在學）</li>
-      <li>高中學歷 — XXX 高中</li>
-    </ul>
-
-    <h2>技能</h2>
-    <div class="skills">
-      <span>Excel</span>
-      <span>Power BI</span>
-      <span>資料分析</span>
-      <span>文書處理</span>
-      <span>HTML / CSS / JavaScript</span>
-    </div>
-
-    <h2>經驗</h2>
-    <ul>
-      <li>課堂專案：行銷企劃撰寫與簡報製作</li>
-      <li>小組報告：資料整理與視覺化展示</li>
-      <li>系上活動：協助活動流程規劃與執行</li>
-      <li>課外活動：參加合唱比賽，負責團隊協作與舞台呈現</li>
-    </ul>
-
-    <h2>未來目標</h2>
-    <p>
-      希望未來能在管理顧問、數據分析或企業營運領域找到發揮所長的機會，並持續學習各種新興工具與技術。
-    </p>
+  <div id="exportBtnContainer">
+    <button id="exportPdf" style="padding:10px 14px;border-radius:8px;border:none;cursor:pointer;background:#333;color:#fff;font-weight:600;">匯出 PDF</button>
   </div>
+
+  <div class="resume" id="resume-content">
+    
+    <div class="avatar-container">
+      <img src="image/photo.jpg" alt="王曉華" />
+    </div>
+
+    <div class="header-banner">
+      <h1>王曉華</h1>
+      <h2>亞洲大學 經營管理學系</h2>
+    </div>
+
+    <div class="main-body">
+      <div class="left-col">
+        
+        <div class="left-content">
+          <div class="section-title">
+            <div class="icon-circle"><i class="fas fa-user"></i></div>
+            自我介紹
+          </div>
+          <div class="left-text">
+            <p>我是亞洲大學經管系的學生，對商業分析、專案管理與資料觀察具有濃厚興趣。喜歡團隊合作，也熱愛學習新工具與技能，希望未來能在管理或數據相關領域發展。</p>
+          </div>
+        </div>
+
+        <div class="left-content">
+          <div class="section-title">
+            <div class="icon-circle"><i class="fas fa-trophy"></i></div>
+            專業技能
+          </div>
+          <ul class="skill-list">
+            <li>Excel / Power BI</li>
+            <li>資料分析與視覺化</li>
+            <li>HTML / CSS / JavaScript</li>
+            <li>文書處理 (Office)</li>
+            <li>團隊溝通與協作</li>
+            <li>時間管理</li>
+          </ul>
+        </div>
+
+        <div class="left-content">
+          <div class="section-title">
+            <div class="icon-circle"><i class="fas fa-bullseye"></i></div> 未來目標
+          </div>
+          <ul class="skill-list">
+            <li>管理顧問領域</li>
+            <li>數據分析師</li>
+            <li>企業營運優化</li>
+            <li>持續學習新技術</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="right-col">
+        
+        <div class="right-content">
+          <div class="section-title">
+            <div class="icon-circle"><i class="fas fa-graduation-cap"></i></div>
+            學歷背景
+          </div>
+          
+          <div class="item-block">
+            <div class="item-header">
+              <span>亞洲大學</span>
+              <span class="item-date">2023 - 至今</span>
+            </div>
+            <div class="item-sub">經營管理學系（在學）</div>
+            <p class="item-desc">主修企業管理與數據應用，積極參與系上專案。</p>
+          </div>
+
+          <div class="item-block">
+            <div class="item-header">
+              <span>XXX 高中</span>
+              <span class="item-date">2020 - 2023</span>
+            </div>
+            <div class="item-sub">普通科</div>
+          </div>
+        </div>
+
+        <div class="right-content">
+          <div class="section-title">
+            <div class="icon-circle"><i class="fas fa-briefcase"></i></div>
+            專案與活動經驗
+          </div>
+
+          <div class="item-block">
+            <div class="item-header">
+              <span>行銷企劃撰寫</span>
+              <span class="item-date">課堂專案</span>
+            </div>
+            <div class="item-desc">
+                <ul>
+                    <li>負責市場調查與競品分析。</li>
+                    <li>製作期末簡報並擔任主要講者。</li>
+                </ul>
+            </div>
+          </div>
+
+          <div class="item-block">
+            <div class="item-header">
+              <span>資料整理與視覺化</span>
+              <span class="item-date">小組報告</span>
+            </div>
+            <div class="item-desc">
+                <ul>
+                    <li>使用 Excel 整理大量數據。</li>
+                    <li>設計圖表以清楚呈現分析結果。</li>
+                </ul>
+            </div>
+          </div>
+
+          <div class="item-block">
+            <div class="item-header">
+              <span>系上活動協辦</span>
+              <span class="item-date">系學會</span>
+            </div>
+            <div class="item-desc">
+                <ul>
+                    <li>協助活動流程規劃與當日場控執行。</li>
+                </ul>
+            </div>
+          </div>
+
+          <div class="item-block">
+            <div class="item-header">
+              <span>校內合唱比賽</span>
+              <span class="item-date">課外活動</span>
+            </div>
+            <div class="item-desc">
+                <ul>
+                    <li>負責團隊排練協調與舞台呈現設計。</li>
+                </ul>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <div class="footer-bar">
+      <div class="contact-item">
+        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+        example@mail.com
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon"><i class="fas fa-phone"></i></div>
+        0912-345-678
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+        TAICHUNG, TAIWAN
+      </div>
+    </div>
+
+  </div>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
   <script>
     document.getElementById('exportPdf').addEventListener('click', function () {
+      // 為了 PDF 輸出美觀，隱藏按鈕
+      document.getElementById('exportBtnContainer').style.display = 'none';
+      
       const element = document.querySelector('.resume');
       const opt = {
-        margin:       0.4,
-        filename:     '王曉華_履歷.pdf',
+        margin:       0,
+        filename:     '王曉華_履歷_Red.pdf',
         image:        { type: 'jpeg', quality: 0.98 },
         html2canvas:  { scale: 2, useCORS: true },
-        jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
       };
+
       // Generate PDF
-      html2pdf().set(opt).from(element).save();
+      html2pdf().set(opt).from(element).save().then(() => {
+          // 匯出後顯示按鈕
+          document.getElementById('exportBtnContainer').style.display = 'block';
+      });
     });
   </script>
 </body>
